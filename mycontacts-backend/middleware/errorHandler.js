@@ -1,5 +1,6 @@
 const { constants } = require('../constants.js');
 const errorHandler = (err,req,res,next) => { 
+    
     const statusCode = res.statusCode ? res.statusCode : 500;
 
     switch(statusCode){
@@ -44,7 +45,11 @@ const errorHandler = (err,req,res,next) => {
              break;
 
         default:
-            console.log('No Error, All Good!')     
+            console.log(err);  
+            res.status(500).json({
+                message: err.message,
+                stackTrace: err.stack
+            });
     }
     
 };
